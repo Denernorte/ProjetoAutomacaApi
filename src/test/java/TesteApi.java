@@ -24,4 +24,23 @@ public class TesteApi {
                         .body(Matchers.containsString("Retorno da api com sucesso!!!"));
 
     }
+
+    @Test
+    public void testeQueryParam(){
+
+        String url = "http://localhost:8080/api/primeiraApiV1";
+        String textoQueryParam = "Automação";
+
+        RestAssured.given()
+                .queryParam("palavra", "Automação")
+                .log().all()
+                .when()
+                .get(url)
+                .then()
+                .log().all()
+                .assertThat()
+                .statusCode(200)
+                .body(Matchers.containsString("Automação"));
+
+    }
 }
