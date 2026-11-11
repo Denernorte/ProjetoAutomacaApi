@@ -1,22 +1,23 @@
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.specification.RequestSpecification;
 import org.hamcrest.Matchers;
 import org.junit.Test;
-
-import io.restassured.RestAssured;
+import static io.restassured.RestAssured.given;
 
 public class TesteApi {
-    @Test
-        public void testName() {
-                
-        }
+    String url = "http://localhost:8080/api";
+    RequestSpecification requestSpecification = new RequestSpecBuilder().setBaseUri(url).build();
 
     @Test
     public void testeComSucessoApi(){
 
-        String url = "http://localhost:8080/api/primeiraApi";
-                RestAssured.given()
+        String path = "/primeiraApi";
+
+                        given()
+                                .spec(requestSpecification)
                                 .log().all()
                         .when()
-                                .get(url)
+                                .get(path)
                         .then()
                                 .log().all()
                                 .assertThat()
@@ -28,14 +29,15 @@ public class TesteApi {
     @Test
     public void testeQueryParam(){
 
-        String url = "http://localhost:8080/api/primeiraApiV1";
+        String path = "/primeiraApiV1";
         String textoQueryParam = "Automação";
 
-        RestAssured.given()
+        given()
+                .spec(requestSpecification)
                 .queryParam("palavra", "Automação")
                 .log().all()
                 .when()
-                .get(url)
+                .get(path)
                 .then()
                 .log().all()
                 .assertThat()
@@ -43,4 +45,25 @@ public class TesteApi {
                 .body(Matchers.containsString("Automação"));
 
     }
+
+    @Test
+    public void testePathParam(){
+        String textPathParam = "textPathParam";
+        String path = "/primeiraApiV2/"+textPathParam;
+
+        given()
+                .spec(requestSpecification)
+                .log().all()
+                .when()
+                .get(path)
+                .then()
+                .log().all()
+                .assertThat()
+                .statusCode(200)
+                .body(Matchers.containsString("textPathParam"));
+
+    }
+
+
+
 }
