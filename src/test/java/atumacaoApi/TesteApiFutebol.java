@@ -1,9 +1,8 @@
-package atumacaoApi;
+package apiFute;
 
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.hamcrest.Matchers;
-import org.junit.Assert;
 import org.junit.Test;
 import static io.restassured.RestAssured.given;
 
@@ -102,34 +101,7 @@ public class TesteApiFutebol {
                 System.out.println((i+1) + " º - "+ response.path("["+i+"].time.nome_popular"));
 
 }
-    }
 
-    //Exatraindo Informacoes do Primeiro e Ultimo Colocado
 
-    @Test
-    public <Int> void extracaoUsandoLoopColocacao(){
-        Response  response;
-
-        String url = "https://api.api-futebol.com.br/v1/campeonatos/10/tabela";
-
-        response  = RestAssured.given()
-                .log().all()
-                .header("Authorization", "Bearer test_efeb1d1af49dc532e2df25e7c59893")
-                .when()
-                .get(url)
-                .then()
-                .log().all()
-                .assertThat()
-                .statusCode(200)
-                .extract()
-                .response();
-
-        for ( int i = 0; i < 20; i++){
-            System.out.println((i+1) + " º - "+ response.path("["+i+"].time.nome_popular"));
-                    }
-        Int primeiroColocado = response.path("[0].pontos");
-        Int ultimoColocado = response.path("[19].pontos");
-
-        //Assert.assertTrue("Primeiro colocado não tem mais pontos que o ultimo", primeiroColocado > ultimoColocado);
     }
 }
