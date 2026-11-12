@@ -1,4 +1,4 @@
-package apiFute;
+package apiFutebol;
 
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
@@ -8,7 +8,7 @@ import static io.restassured.RestAssured.given;
 
 public class TesteApiFutebol {
     @Test
-    public void apiFute(){
+    public void apiFutebol(){
 
         String url = "https://api.api-futebol.com.br/v1/campeonatos";
 
