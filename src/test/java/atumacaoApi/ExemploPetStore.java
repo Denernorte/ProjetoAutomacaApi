@@ -29,7 +29,5 @@ public class ExemploPetStore {
                 .log().all()
                 .assertThat()
                 .statusCode(200);
-
-
-    }
+}
 }
